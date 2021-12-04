@@ -12,39 +12,39 @@ import java.util.function.Function;
 
 public class Utils {
 
-	public static List<String> readFromResources(String s) throws IOException {
+   public static List<String> readFromResources(String s) throws IOException {
 
-		return readFromResources(s, line -> line);
-	}
+      return readFromResources(s, line -> line);
+   }
 
-	public static <T> List<T> readFromResources(String s, Function<String, T> converter) throws IOException {
+   public static <T> List<T> readFromResources(String s, Function<String, T> converter) throws IOException {
 
-		List<T> result = new ArrayList<>();
+      List<T> result = new ArrayList<>();
 
-		InputStream is = Utils.class.getResourceAsStream(s);
+      InputStream is = Utils.class.getResourceAsStream(s);
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				result.add(converter.apply(line));
-			}
-			return result;
-		}
-	}
+         String line = null;
+         while ((line = reader.readLine()) != null) {
+            result.add(converter.apply(line));
+         }
+         return result;
+      }
+   }
 
-	public static List<String> split(String s, String separators) {
+   public static List<String> split(String s, String separators) {
 
-		return split(s, separators, p -> p);
-	}
+      return split(s, separators, p -> p);
+   }
 
-	public static <T> List<T> split(String s, String separators, Function<String, T> converter) {
+   public static <T> List<T> split(String s, String separators, Function<String, T> converter) {
 
-		StringTokenizer tokenizer = new StringTokenizer(s, separators);
-		List<T> result = new ArrayList<>();
-		while (tokenizer.hasMoreTokens()) {
-			result.add(converter.apply(tokenizer.nextToken()));
-		}
-		return result;
-	}
+      StringTokenizer tokenizer = new StringTokenizer(s, separators);
+      List<T> result = new ArrayList<>();
+      while (tokenizer.hasMoreTokens()) {
+         result.add(converter.apply(tokenizer.nextToken()));
+      }
+      return result;
+   }
 }

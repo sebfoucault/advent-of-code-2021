@@ -9,114 +9,114 @@ import io.reactivex.Observable;
 
 public class Day02 {
 
-	enum Direction {
+   enum Direction {
 
-		Forward, Down, Up;
+      Forward, Down, Up;
 
-		public static Direction fromString(String s) {
-			switch (s) {
-			case "forward":
-				return Forward;
-			case "down":
-				return Down;
-			case "up":
-				return Up;
-			default:
-				throw new IllegalArgumentException();
-			}
-		}
-	}
+      public static Direction fromString(String s) {
+         switch (s) {
+         case "forward":
+            return Forward;
+         case "down":
+            return Down;
+         case "up":
+            return Up;
+         default:
+            throw new IllegalArgumentException();
+         }
+      }
+   }
 
-	static class Command {
+   static class Command {
 
-		final Direction direction;
-		final int magnitude;
+      final Direction direction;
+      final int magnitude;
 
-		Command(Direction direction, int magnitude) {
-			this.direction = direction;
-			this.magnitude = magnitude;
-		}
+      Command(Direction direction, int magnitude) {
+         this.direction = direction;
+         this.magnitude = magnitude;
+      }
 
-		public static Command parse(String s) {
-			String[] parts = s.split(" ");
-			return new Command(Direction.fromString(parts[0]), Integer.parseInt(parts[1]));
-		}
+      public static Command parse(String s) {
+         String[] parts = s.split(" ");
+         return new Command(Direction.fromString(parts[0]), Integer.parseInt(parts[1]));
+      }
 
-		@Override
-		public String toString() {
-			return "Command [direction=" + direction + ", magnitude=" + magnitude + "]";
-		}
-	}
+      @Override
+      public String toString() {
+         return "Command [direction=" + direction + ", magnitude=" + magnitude + "]";
+      }
+   }
 
-	static class Position {
+   static class Position {
 
-		final int x;
-		final int depth;
-		final int aim;
+      final int x;
+      final int depth;
+      final int aim;
 
-		Position(int x, int depth, int aim) {
-			this.x = x;
-			this.depth = depth;
-			this.aim = aim;
-		}
+      Position(int x, int depth, int aim) {
+         this.x = x;
+         this.depth = depth;
+         this.aim = aim;
+      }
 
-		Position applySimple(Command command) {
+      Position applySimple(Command command) {
 
-			switch (command.direction) {
-			case Down:
-				return new Position(x, depth + command.magnitude, aim);
-			case Up:
-				return new Position(x, depth - command.magnitude, aim);
-			case Forward:
-				return new Position(x + command.magnitude, depth, aim);
-			default:
-				throw new IllegalStateException();
-			}
-		}
+         switch (command.direction) {
+         case Down:
+            return new Position(x, depth + command.magnitude, aim);
+         case Up:
+            return new Position(x, depth - command.magnitude, aim);
+         case Forward:
+            return new Position(x + command.magnitude, depth, aim);
+         default:
+            throw new IllegalStateException();
+         }
+      }
 
-		Position applyWithAim(Command command) {
+      Position applyWithAim(Command command) {
 
-			switch (command.direction) {
-			case Down:
-				return new Position(x, depth, aim + command.magnitude);
-			case Up:
-				return new Position(x, depth, aim - command.magnitude);
-			case Forward:
-				return new Position(x + command.magnitude, depth + (aim * command.magnitude), aim);
-			default:
-				throw new IllegalStateException();
-			}
-		}
-		
-		@Override
-		public String toString() {
-			return "Position [x=" + x + ", depth=" + depth + "]";
-		}
-	}
+         switch (command.direction) {
+         case Down:
+            return new Position(x, depth, aim + command.magnitude);
+         case Up:
+            return new Position(x, depth, aim - command.magnitude);
+         case Forward:
+            return new Position(x + command.magnitude, depth + (aim * command.magnitude), aim);
+         default:
+            throw new IllegalStateException();
+         }
+      }
+      
+      @Override
+      public String toString() {
+         return "Position [x=" + x + ", depth=" + depth + "]";
+      }
+   }
 
-	@Test
-	void part1() throws IOException {
+   @Test
+   void part1() throws IOException {
 
-		var commands = Utils.readFromResources("/day02.txt", Command::parse);
-		
-		var finalPos = Observable
-			.fromIterable(commands)
-			.reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applySimple(cmd))
-			.blockingGet();
-		
-		System.out.println(finalPos.x * finalPos.depth);
-	}
+      var commands = Utils.readFromResources("/day02.txt", Command::parse);
+      
+      var finalPos = Observable
+         .fromIterable(commands)
+         .reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applySimple(cmd))
+         .blockingGet();
+      
+      System.out.println(finalPos.x * finalPos.depth);
+   }
 
-	@Test
-	void part2() throws IOException {
+   @Test
+   void part2() throws IOException {
 
-		var commands = Utils.readFromResources("/day02.txt", Command::parse);
-		
-		var finalPos = Observable
-			.fromIterable(commands)
-			.reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applyWithAim(cmd))
-			.blockingGet();
-		
-		System.out.println(finalPos.x * finalPos.depth);
-	}
+      var commands = Utils.readFromResources("/day02.txt", Command::parse);
+      
+      var finalPos = Observable
+         .fromIterable(commands)
+         .reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applyWithAim(cmd))
+         .blockingGet();
+      
+      System.out.println(finalPos.x * finalPos.depth);
+   }
 }
