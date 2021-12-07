@@ -52,7 +52,7 @@ public class Day03 {
    @Test
    void part1() throws IOException {
       
-      var records = Utils.readFromResources("/day03.txt", s -> s);
+      var records = Utils.readValuesFromResources("/day03.txt", s -> s);
       
       var powerConsumption = Observable
             .fromIterable(records)
@@ -66,7 +66,7 @@ public class Day03 {
    @Test
    void part2() throws Exception {
       
-      var records = Utils.readFromResources("/day03.txt", s -> s);
+      var records = Utils.readValuesFromResources("/day03.txt", s -> s);
 
       var oxygenRecord = findRecord(records, (aggr, bitIndex) -> keepForOxygen(aggr, bitIndex));
       var co2Record = findRecord(records, (aggr, bitIndex) -> keepForCO2(aggr, bitIndex));

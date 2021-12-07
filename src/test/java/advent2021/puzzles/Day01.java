@@ -13,7 +13,7 @@ public class Day01 {
    @Test
    void part1() throws IOException {
       
-      var values = Utils.readFromResources("/day01.txt", Integer::parseInt);
+      var values = Utils.readValuesFromResources("/day01.txt", Integer::parseInt);
       
       System.out.println(countIncreasedValues(values));
    }
@@ -21,7 +21,7 @@ public class Day01 {
    @Test
    void part2() throws IOException {
 
-      var values = Utils.readFromResources("/day01.txt", Integer::parseInt);
+      var values = Utils.readValuesFromResources("/day01.txt", Integer::parseInt);
       
       System.out.println(countIncreasedValues(sumWithSlidingWindowOf3(values)));
    }

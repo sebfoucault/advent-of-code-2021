@@ -141,7 +141,7 @@ public class Day05 {
    @Test
    void part1() throws IOException {
 
-      var vectors = Utils.readFromResources("/day05.txt", Day05::parseVector);
+      var vectors = Utils.readValuesFromResources("/day05.txt", Day05::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, false);
 
@@ -151,7 +151,7 @@ public class Day05 {
    @Test
    void part2() throws IOException {
 
-      var vectors = Utils.readFromResources("/day05.txt", Day05::parseVector);
+      var vectors = Utils.readValuesFromResources("/day05.txt", Day05::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, true);
 

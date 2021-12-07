@@ -97,7 +97,7 @@ public class Day02 {
    @Test
    void part1() throws IOException {
 
-      var commands = Utils.readFromResources("/day02.txt", Command::parse);
+      var commands = Utils.readValuesFromResources("/day02.txt", Command::parse);
       
       var finalPos = Observable
          .fromIterable(commands)
@@ -110,7 +110,7 @@ public class Day02 {
    @Test
    void part2() throws IOException {
 
-      var commands = Utils.readFromResources("/day02.txt", Command::parse);
+      var commands = Utils.readValuesFromResources("/day02.txt", Command::parse);
       
       var finalPos = Observable
          .fromIterable(commands)

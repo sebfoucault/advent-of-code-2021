@@ -12,12 +12,23 @@ import java.util.function.Function;
 
 public class Utils {
 
-   public static List<String> readFromResources(String s) throws IOException {
-
-      return readFromResources(s, line -> line);
+   public static String readSingleValueFromResources(String s) throws IOException {
+      
+      return readValuesFromResources(s).get(0);
    }
 
-   public static <T> List<T> readFromResources(String s, Function<String, T> converter) throws IOException {
+   public static <T> T readSingleValueFromResources(String s, Function<String, T> converter) throws IOException {
+      
+      String value = readValuesFromResources(s).get(0);
+      return converter.apply(value);
+   }
+   
+   public static List<String> readValuesFromResources(String s) throws IOException {
+
+      return readValuesFromResources(s, line -> line);
+   }
+
+   public static <T> List<T> readValuesFromResources(String s, Function<String, T> converter) throws IOException {
 
       List<T> result = new ArrayList<>();
 

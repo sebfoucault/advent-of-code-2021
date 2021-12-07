@@ -66,7 +66,7 @@ public class Day06 {
 
    private SquidState countSquidsAfterIteration(int iterationCount) throws IOException {
       
-      var state = readState(Utils.readFromResources("/day06.txt").get(0));
+      var state = readState(Utils.readValuesFromResources("/day06.txt").get(0));
       for (int i = 0; i < iterationCount; i++) {
          state = nextState(state, 6, 8);
       }

@@ -163,7 +163,7 @@ public class Day04 {
    @Test
    void part1() throws IOException {
 
-      var lines = Utils.readFromResources("/day04.txt");
+      var lines = Utils.readValuesFromResources("/day04.txt");
       var game = Game.parse(5, lines);
       
       System.out.println(game.playWithPart1Rules());
@@ -172,7 +172,7 @@ public class Day04 {
    @Test
    void part2() throws IOException {
 
-      var lines = Utils.readFromResources("/day04.txt");
+      var lines = Utils.readValuesFromResources("/day04.txt");
       var game = Game.parse(5, lines);
       
       System.out.println(game.playWithPart2Rules());
