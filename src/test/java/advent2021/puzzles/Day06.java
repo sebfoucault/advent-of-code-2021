@@ -13,16 +13,16 @@ import advent2021.misc.Utils;
 
 public class Day06 {
 
-   public class SquidState {
+   public static class SquidState {
       
-      private Map<Integer, Long> countPerAge = new HashMap<>();
+      private final Map<Integer, Long> countPerAge = new HashMap<>();
 
       void addSquid(int squidAge) {
-         countPerAge.merge(squidAge, 1L, (v1, v2) -> v1 + v2);
+         countPerAge.merge(squidAge, 1L, Long::sum);
       }
             
       void addSquids(int squidAge, long count) {
-         countPerAge.merge(squidAge, count, (v1, v2) -> v1 + v2);
+         countPerAge.merge(squidAge, count, Long::sum);
       }
             
       Set<Entry<Integer, Long>> getSquidAgeInfo() {
@@ -30,7 +30,7 @@ public class Day06 {
       }
       
       long getSquidCount() {
-         return countPerAge.values().stream().reduce(Long::sum).orElseGet(() -> 0L);
+         return countPerAge.values().stream().reduce(Long::sum).orElse(0L);
       }
    }
    

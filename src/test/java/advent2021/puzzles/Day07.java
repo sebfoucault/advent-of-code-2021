@@ -38,7 +38,7 @@ public class Day07 {
       System.out.println(r.position + " => " + r.cost);
    }
    
-   class Result {
+   static class Result {
       int position;
       int cost;
    }
@@ -54,7 +54,7 @@ public class Day07 {
       int minValue = Integer.MAX_VALUE;
       int maxValue = 0;
       for (int value: values) {
-         valuesOccurrences.merge(value, 1, (v1, v2) -> v1 + v2);
+         valuesOccurrences.merge(value, 1, Integer::sum);
          minValue = Math.min(minValue, value);
          maxValue = Math.max(maxValue, value);
       }

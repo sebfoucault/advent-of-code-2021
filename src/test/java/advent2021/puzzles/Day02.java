@@ -101,7 +101,7 @@ public class Day02 {
       
       var finalPos = Observable
          .fromIterable(commands)
-         .reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applySimple(cmd))
+         .reduce(new Position(0, 0, 0), Position::applySimple)
          .blockingGet();
       
       System.out.println(finalPos.x * finalPos.depth);
@@ -114,7 +114,7 @@ public class Day02 {
       
       var finalPos = Observable
          .fromIterable(commands)
-         .reduce(new Position(0, 0, 0), (pos, cmd) -> pos.applyWithAim(cmd))
+         .reduce(new Position(0, 0, 0), Position::applyWithAim)
          .blockingGet();
       
       System.out.println(finalPos.x * finalPos.depth);

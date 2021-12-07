@@ -76,7 +76,7 @@ public class Day05 {
 
    static Vector parseVector(String s) {
 
-      Pattern pattern = Pattern.compile("([0-9]+)\\,([0-9]+) \\-\\> ([0-9]+)\\,([0-9]+)");
+      Pattern pattern = Pattern.compile("([0-9]+),([0-9]+) -> ([0-9]+),([0-9]+)");
       Matcher matcher = pattern.matcher(s);
       matcher.matches();
 
@@ -134,7 +134,7 @@ public class Day05 {
       }
 
       static void incrementValueAt(Map<Point, Integer> values, int x, int y) {
-         values.merge(new Point(x, y), 1, (v1, v2) -> v1 + v2);
+         values.merge(new Point(x, y), 1, Integer::sum);
       }
    }
 
@@ -164,7 +164,6 @@ public class Day05 {
       Map<Point, Integer> intersections = g.computeIntersection(vectors, followDiagonals);
 
       long count = intersections.entrySet().stream().filter(e -> e.getValue() >= 2).count();
-
       return count;
    }
 }

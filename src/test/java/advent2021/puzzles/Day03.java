@@ -13,7 +13,7 @@ import io.reactivex.functions.Predicate;
 
 public class Day03 {
 
-   class Aggregator {
+   static class Aggregator {
       
       private final int width;
       private final int[] countOfBitSetTo1;
@@ -56,7 +56,7 @@ public class Day03 {
       
       var powerConsumption = Observable
             .fromIterable(records)
-            .reduce(new Aggregator(), (aggr, record) -> aggr.aggregate(record))
+            .reduce(new Aggregator(), Aggregator::aggregate)
             .map(a-> gammaRate(a) * epsilonRate(a))
             .blockingGet();
       
@@ -68,8 +68,8 @@ public class Day03 {
       
       var records = Utils.readValuesFromResources("/day03.txt", s -> s);
 
-      var oxygenRecord = findRecord(records, (aggr, bitIndex) -> keepForOxygen(aggr, bitIndex));
-      var co2Record = findRecord(records, (aggr, bitIndex) -> keepForCO2(aggr, bitIndex));
+      var oxygenRecord = findRecord(records, this::keepForOxygen);
+      var co2Record = findRecord(records, this::keepForCO2);
       
       System.out.println(binaryStringToInt(oxygenRecord) * binaryStringToInt(co2Record));
    }
@@ -83,7 +83,7 @@ public class Day03 {
          
          var resultAggr = Observable
             .fromIterable(filteredRecords)
-            .reduce(new Aggregator(), (aggr, record) -> aggr.aggregate(record))
+            .reduce(new Aggregator(), Aggregator::aggregate)
             .blockingGet();
          
          Predicate<String> keepForOxygen = predicateProvider.apply(resultAggr, bitIndex++);
