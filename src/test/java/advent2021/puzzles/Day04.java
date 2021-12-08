@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import advent2021.misc.Utils;
 
+import static advent2021.misc.Utils.readValuesFromResources;
+
 public class Day04 {
 
    static class Game {
@@ -163,7 +165,7 @@ public class Day04 {
    @Test
    void part1() throws IOException {
 
-      var lines = Utils.readValuesFromResources("/day04.txt");
+      var lines = readValuesFromResources("/day04.txt");
       var game = Game.parse(5, lines);
       
       System.out.println(game.playWithPart1Rules());
@@ -172,7 +174,7 @@ public class Day04 {
    @Test
    void part2() throws IOException {
 
-      var lines = Utils.readValuesFromResources("/day04.txt");
+      var lines = readValuesFromResources("/day04.txt");
       var game = Game.parse(5, lines);
       
       System.out.println(game.playWithPart2Rules());

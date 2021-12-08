@@ -1,5 +1,6 @@
 package advent2021.puzzles;
 
+import static advent2021.misc.Utils.readValuesFromResources;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -141,7 +142,7 @@ public class Day05 {
    @Test
    void part1() throws IOException {
 
-      var vectors = Utils.readValuesFromResources("/day05.txt", Day05::parseVector);
+      var vectors = readValuesFromResources("/day05.txt", Day05::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, false);
 
@@ -151,7 +152,7 @@ public class Day05 {
    @Test
    void part2() throws IOException {
 
-      var vectors = Utils.readValuesFromResources("/day05.txt", Day05::parseVector);
+      var vectors = readValuesFromResources("/day05.txt", Day05::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, true);
 

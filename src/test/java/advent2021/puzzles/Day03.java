@@ -11,6 +11,8 @@ import io.reactivex.Observable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Predicate;
 
+import static advent2021.misc.Utils.readValuesFromResources;
+
 public class Day03 {
 
    static class Aggregator {
@@ -52,7 +54,7 @@ public class Day03 {
    @Test
    void part1() throws IOException {
       
-      var records = Utils.readValuesFromResources("/day03.txt", s -> s);
+      var records = readValuesFromResources("/day03.txt", s -> s);
       
       var powerConsumption = Observable
             .fromIterable(records)
@@ -66,7 +68,7 @@ public class Day03 {
    @Test
    void part2() throws Exception {
       
-      var records = Utils.readValuesFromResources("/day03.txt", s -> s);
+      var records = readValuesFromResources("/day03.txt", s -> s);
 
       var oxygenRecord = findRecord(records, this::keepForOxygen);
       var co2Record = findRecord(records, this::keepForCO2);

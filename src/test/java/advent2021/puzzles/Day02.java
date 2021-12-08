@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import advent2021.misc.Utils;
 import io.reactivex.Observable;
 
+import static advent2021.misc.Utils.readValuesFromResources;
+
 public class Day02 {
 
    enum Direction {
@@ -97,7 +99,7 @@ public class Day02 {
    @Test
    void part1() throws IOException {
 
-      var commands = Utils.readValuesFromResources("/day02.txt", Command::parse);
+      var commands = readValuesFromResources("/day02.txt", Command::parse);
       
       var finalPos = Observable
          .fromIterable(commands)
@@ -110,7 +112,7 @@ public class Day02 {
    @Test
    void part2() throws IOException {
 
-      var commands = Utils.readValuesFromResources("/day02.txt", Command::parse);
+      var commands = readValuesFromResources("/day02.txt", Command::parse);
       
       var finalPos = Observable
          .fromIterable(commands)

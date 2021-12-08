@@ -1,19 +1,12 @@
 package advent2021.puzzles;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
+import advent2021.misc.Utils;
 import org.junit.jupiter.api.Test;
 
-import advent2021.misc.Utils;
+import java.io.IOException;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Day08 {
 
@@ -58,15 +51,11 @@ public class Day08 {
 
       List<Sample> samples = Utils.readValuesFromResources("/day08.txt", Sample::parse);
 
-      int matching = 0;
-      for (Sample sample : samples) {
-         for (Set<Character> output : sample.outputs) {
-            int size = output.size();
-            if (size == 2 || size == 3 || size == 4 || size == 7) {
-               matching++;
-            }
-         }
-      }
+      long matching = samples.stream()
+              .map(sample -> sample.outputs)
+              .flatMap(Collection::stream)
+              .filter(output -> Arrays.asList(2,3,4,7).contains(output.size()))
+              .count();
 
       System.out.println(matching);
    }
@@ -139,12 +128,10 @@ public class Day08 {
 
       static int apply(Sample sample, Map<Set<Character>, Integer> map) {
 
-         int result = 0;
-         for (Set<Character> output : sample.outputs) {
-            result *= 10;
-            result += map.get(output);
-         }
-         return result;
+         return sample.outputs
+                 .stream()
+                 .map(map::get)
+                 .reduce(0, (sum, v) -> sum * 10 + v, Integer::sum);
       }
    }
 }

@@ -10,13 +10,15 @@ import org.junit.jupiter.api.Test;
 
 import advent2021.misc.Utils;
 
+import static advent2021.misc.Utils.readSingleValueFromResources;
+
 public class Day07 {
 
    
    @Test
    void part1() throws IOException {
       
-      List<Integer> positions = Utils.readSingleValueFromResources("/day07.txt",
+      List<Integer> positions = readSingleValueFromResources("/day07.txt",
             s -> Utils.split(s, ",", Integer::parseInt));
       
       Result r = align(positions, (from, to) -> Math.abs(to - from));
@@ -27,7 +29,7 @@ public class Day07 {
    @Test
    void part2() throws IOException {
       
-      List<Integer> positions = Utils.readSingleValueFromResources("/day07.txt",
+      List<Integer> positions = readSingleValueFromResources("/day07.txt",
             s -> Utils.split(s, ",", Integer::parseInt));
       
       Result r = align(positions, (from, to) -> {

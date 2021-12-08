@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Test;
 import advent2021.misc.Utils;
 import io.reactivex.Observable;
 
+import static advent2021.misc.Utils.readValuesFromResources;
+
 public class Day01 {
 
    @Test
    void part1() throws IOException {
       
-      var values = Utils.readValuesFromResources("/day01.txt", Integer::parseInt);
+      var values = readValuesFromResources("/day01.txt", Integer::parseInt);
       
       System.out.println(countIncreasedValues(values));
    }
@@ -21,7 +23,7 @@ public class Day01 {
    @Test
    void part2() throws IOException {
 
-      var values = Utils.readValuesFromResources("/day01.txt", Integer::parseInt);
+      var values = readValuesFromResources("/day01.txt", Integer::parseInt);
       
       System.out.println(countIncreasedValues(sumWithSlidingWindowOf3(values)));
    }
