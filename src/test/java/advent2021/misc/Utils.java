@@ -6,12 +6,27 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.function.Function;
 
 public class Utils {
 
+   public static List<Integer> digitsToInt(String s) {
+
+      List<Integer> result = new ArrayList<>();
+      
+      for (int i = 0; i < s.length(); i++) {
+         
+         char c = s.charAt(i);
+         result.add(Integer.parseInt("" + c));
+      }
+      
+      return result;
+   }
+   
    public static String readSingleValueFromResources(String s) throws IOException {
       
       return readValuesFromResources(s).get(0);
@@ -58,4 +73,17 @@ public class Utils {
       }
       return result;
    }
+   
+   
+   public static class Sets {
+      
+      public static <T> Set<T> union(Set<T> s1, Set<T> s2) {
+         
+         Set<T> result = new HashSet<>();
+         result.addAll(s1);
+         result.addAll(s2);
+         return result;
+      }
+   }
+   
 }
