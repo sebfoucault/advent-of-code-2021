@@ -1,25 +1,29 @@
 package advent2021.puzzles;
 
-import advent2021.misc.Utils;
-import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Day08 {
+import org.junit.jupiter.api.Test;
 
-   static class Sample {
+import advent2021.misc.Utils;
 
-      final List<Set<Character>> patterns;
-      final List<Set<Character>> outputs;
+public class Day08Test {
 
-      Sample(List<Set<Character>> patterns, List<Set<Character>> outputs) {
-         this.patterns = patterns;
-         this.outputs = outputs;
-      }
-      
+   static record Sample (List<Set<Character>> patterns, List<Set<Character>> outputs) {
+
       static Sample parse(String s) {
 
          List<String> splits = Utils.split(s, "|");
@@ -35,7 +39,7 @@ public class Day08 {
 
          return new Sample(patterns, outputs);
       }
-      
+
       private static Set<Character> toCharacterSet(String s) {
 
          Set<Character> result = new TreeSet<>();
@@ -51,13 +55,13 @@ public class Day08 {
 
       List<Sample> samples = Utils.readValuesFromResources("/day08.txt", Sample::parse);
 
-      long matching = samples.stream()
+      long unambigousOutputsCount = samples.stream()
               .map(sample -> sample.outputs)
               .flatMap(Collection::stream)
               .filter(output -> Arrays.asList(2,3,4,7).contains(output.size()))
               .count();
 
-      System.out.println(matching);
+      assertThat(unambigousOutputsCount, is(449L));
    }
 
    @Test
@@ -68,8 +72,8 @@ public class Day08 {
       int sum = samples.stream()
             .map(s -> Solver.apply(s, Solver.solve(s)))
             .reduce(0, Integer::sum);
-      
-      System.out.println(sum);
+
+      assertThat(sum, is(968175));
    }
 
    static class Solver {

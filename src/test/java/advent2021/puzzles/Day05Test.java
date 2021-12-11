@@ -3,63 +3,23 @@ package advent2021.puzzles;
 import static advent2021.misc.Utils.readValuesFromResources;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
-import advent2021.misc.Utils;
+public class Day05Test {
 
-public class Day05 {
+   record Point (int x, int y) {}
 
-   static class Point {
-
-      final int x;
-      final int y;
-
-      Point(int x, int y) {
-         this.x = x;
-         this.y = y;
-      }
-
-      @Override
-      public String toString() {
-         return "Point [x=" + x + ", y=" + y + "]";
-      }
-
-      @Override
-      public int hashCode() {
-         return Objects.hash(x, y);
-      }
-
-      @Override
-      public boolean equals(Object obj) {
-         if (this == obj)
-            return true;
-         if (obj == null)
-            return false;
-         if (getClass() != obj.getClass())
-            return false;
-         Point other = (Point) obj;
-         return x == other.x && y == other.y;
-      }
-   }
-
-   static class Vector {
-
-      final Point from;
-      final Point to;
-
-      Vector(Point from, Point to) {
-         this.from = from;
-         this.to = to;
-      }
+   record Vector (Point from, Point to) {
 
       boolean isVertical() {
          return from.x == to.x;
@@ -67,11 +27,6 @@ public class Day05 {
 
       boolean isHorizontal() {
          return from.y == to.y;
-      }
-
-      @Override
-      public String toString() {
-         return "Vector [from=" + from + ", to=" + to + "]";
       }
    }
 
@@ -142,21 +97,21 @@ public class Day05 {
    @Test
    void part1() throws IOException {
 
-      var vectors = readValuesFromResources("/day05.txt", Day05::parseVector);
+      var vectors = readValuesFromResources("/day05.txt", Day05Test::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, false);
 
-      System.out.println(count);
+      assertThat(count, is(7318L));
    }
 
    @Test
    void part2() throws IOException {
 
-      var vectors = readValuesFromResources("/day05.txt", Day05::parseVector);
+      var vectors = readValuesFromResources("/day05.txt", Day05Test::parseVector);
 
       long count = getNumberOfPointsWithTwoOrMoreIntersections(vectors, true);
 
-      System.out.println(count);
+      assertThat(count, is(19939L));
    }
 
    private long getNumberOfPointsWithTwoOrMoreIntersections(List<Vector> vectors, boolean followDiagonals) {
@@ -164,7 +119,6 @@ public class Day05 {
       Grid g = new Grid();
       Map<Point, Integer> intersections = g.computeIntersection(vectors, followDiagonals);
 
-      long count = intersections.entrySet().stream().filter(e -> e.getValue() >= 2).count();
-      return count;
+      return intersections.entrySet().stream().filter(e -> e.getValue() >= 2).count();
    }
 }
