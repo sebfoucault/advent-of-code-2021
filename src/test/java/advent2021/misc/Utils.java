@@ -1,18 +1,39 @@
 package advent2021.misc;
 
+import org.javatuples.Pair;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.function.Function;
 
 public class Utils {
+
+   public static <U,V> Set<Pair<U,V>> crossProductBut(Collection<U> values1, Collection<V> values2, Set<Pair<U,V>> exclude)  {
+
+      Set<Pair<U,V>> result = new HashSet<>();
+
+      for (U value1: values1) {
+         for (V value2: values2) {
+            Pair<U, V> p = Pair.with(value1, value2);
+            if (exclude == null || !exclude.contains(p)) {
+               result.add(p);
+            }
+         }
+      }
+      return result;
+   }
+
+   public static <U,V> Set<Pair<U,V>> crossProductBut(Collection<U> values1, Collection<V> values2, Pair<U,V> exclude)  {
+      return crossProductBut(values1, values2, Collections.singleton(exclude));
+   }
+
+   public static <U,V> Set<Pair<U,V>> crossProduct(Collection<U> values1, Collection<V> values2) {
+      return crossProductBut(values1, values2, (Pair<U, V>) null);
+   }
 
    public static List<Integer> digitsToInt(String s) {
 
