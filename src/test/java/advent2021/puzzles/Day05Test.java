@@ -13,22 +13,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import advent2021.misc.Point;
+import advent2021.misc.Vector;
 import org.junit.jupiter.api.Test;
 
 public class Day05Test {
-
-   record Point (int x, int y) {}
-
-   record Vector (Point from, Point to) {
-
-      boolean isVertical() {
-         return from.x == to.x;
-      }
-
-      boolean isHorizontal() {
-         return from.y == to.y;
-      }
-   }
 
    static Vector parseVector(String s) {
 
@@ -53,21 +42,21 @@ public class Day05Test {
          for (Vector v : vectors) {
 
             if (v.isVertical()) {
-               for (int y = min(v.from.y, v.to.y); y <= max(v.from.y, v.to.y); y++) {
-                  incrementValueAt(values, v.from.x, y);
+               for (int y = min(v.from().y(), v.to().y()); y <= max(v.from().y(), v.to().y()); y++) {
+                  incrementValueAt(values, v.from().x(), y);
                }
             } else if (v.isHorizontal()) {
-               for (int x = min(v.from.x, v.to.x); x <= max(v.from.x, v.to.x); x++) {
-                  incrementValueAt(values, x, v.from.y);
+               for (int x = min(v.from().x(), v.to().x()); x <= max(v.from().x(), v.to().x()); x++) {
+                  incrementValueAt(values, x, v.from().y());
                }
             } else if (followDiagonals) {
 
                int incX = getMoveInX(v);
                int incY = getMoveInY(v);
 
-               for (int x = v.from.x, y = v.from.y;; x += incX, y += incY) {
+               for (int x = v.from().x(), y = v.from().y();; x += incX, y += incY) {
                   incrementValueAt(values, x, y);
-                  if (x == v.to.x && y == v.to.y) {
+                  if (x == v.to().x() && y == v.to().y()) {
                      break;
                   }
                }
@@ -79,13 +68,13 @@ public class Day05Test {
 
       int getMoveInX(Vector v) {
 
-         int delta = v.to.x - v.from.x;
+         int delta = v.to().x() - v.from().x();
          return delta / Math.abs(delta);
       }
 
       int getMoveInY(Vector v) {
 
-         int delta = v.to.y - v.from.y;
+         int delta = v.to().y() - v.from().y();
          return delta / Math.abs(delta);
       }
 

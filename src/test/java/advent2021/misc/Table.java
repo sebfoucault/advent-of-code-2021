@@ -7,10 +7,10 @@ import java.util.function.Predicate;
 
 public final class Table<T> {
 
-    public static final Collection<Pair<Integer, Integer>> ALL_MOVES =
+    private static final Collection<Pair<Integer, Integer>> ALL_MOVES =
             Utils.crossProductBut(Arrays.asList(-1, 0, +1), Arrays.asList(-1, 0, +1), Pair.with(0,0));
 
-    public static final Collection<Pair<Integer, Integer>> ALL_BUT_DIAGONAL_MOVES =
+    private static final Collection<Pair<Integer, Integer>> ALL_BUT_DIAGONAL_MOVES =
             Arrays.asList(Pair.with(0,  -1), Pair.with(0,  +1), Pair.with(-1, 0), Pair.with(+1,  0));
 
     private final List<T> values = new ArrayList<>();
@@ -71,11 +71,11 @@ public final class Table<T> {
     }
 
 
-    public List<Point> findNeighbors(Point p, Collection<Pair<Integer, Integer>> moves, Predicate<Point> predicate) {
+    public List<Point> findNeighbors(Point p, boolean withDiagonals, Predicate<Point> predicate) {
 
         List<Point> result = new ArrayList<>();
 
-        for (Pair<Integer, Integer> move: moves) {
+        for (Pair<Integer, Integer> move: withDiagonals ? ALL_MOVES : ALL_BUT_DIAGONAL_MOVES) {
 
             int x = p.x() + move.getValue0();
             int y = p.y() + move.getValue1();

@@ -62,7 +62,7 @@ public class Day11Test {
          List<Point> newlyFlashedPoints = new ArrayList<>();
          for (Point flashedPoint: flashedPoints) {
 
-            List<Point> neighbors = table.findNeighbors(flashedPoint, Table.ALL_MOVES, null);
+            List<Point> neighbors = table.findNeighbors(flashedPoint, true, null);
             newlyFlashedPoints.addAll(incrementAndFlash(table, neighbors));
          }
          allFlashedPoints.addAll(newlyFlashedPoints);
