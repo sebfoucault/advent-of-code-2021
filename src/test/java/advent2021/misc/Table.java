@@ -75,7 +75,7 @@ public final class Table<T> {
 
         List<Point> result = new ArrayList<>();
 
-        for (Pair<Integer, Integer> move: ALL_MOVES) {
+        for (Pair<Integer, Integer> move: moves) {
 
             int x = p.x() + move.getValue0();
             int y = p.y() + move.getValue1();
