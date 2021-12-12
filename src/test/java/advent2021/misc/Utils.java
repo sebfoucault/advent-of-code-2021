@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
 public class Utils {
@@ -94,7 +96,17 @@ public class Utils {
       }
       return result;
    }
-   
+
+   public static class Maps {
+
+      public static <K,V> Map<K,V> add(Map<K,V> m, K k, V v, BinaryOperator<V> mergeFunction) {
+
+         Map<K,V> result = new HashMap<>();
+         result.putAll(m);
+         result.merge(k, v, (v1, v2) -> mergeFunction.apply(v1, v2));
+         return result;
+      }
+   }
    
    public static class Sets {
       
