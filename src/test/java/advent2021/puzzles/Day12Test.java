@@ -2,12 +2,13 @@ package advent2021.puzzles;
 
 import advent2021.misc.Utils;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.Matchers.is;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class Day12Test {
 
