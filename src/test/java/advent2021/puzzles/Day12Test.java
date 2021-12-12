@@ -14,20 +14,16 @@ public class Day12Test {
 
    static class Graph {
 
-      private final Set<Vertex> vertices = new HashSet<>();
       private final Set<Edge> edges = new HashSet<>();
 
       public Graph addEdge(Vertex from, Vertex to) {
 
-         this.vertices.add(from);
-         this.vertices.add(to);
          this.edges.add(new Edge(from, to));
          return this;
       }
 
       public Graph merge(Graph g) {
 
-         this.vertices.addAll(g.vertices);
          this.edges.addAll(g.edges);
          return this;
       }
