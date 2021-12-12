@@ -38,9 +38,10 @@ public class Day12Test {
       }
    }
 
-   record Vertex(String id) {
-      public boolean isSmall() {
-         return id.equals(id.toLowerCase());
+   record Vertex(String id, boolean small) {
+
+      public Vertex(String id) {
+         this(id, id.equals(id.toLowerCase()));
       }
    }
 
@@ -52,7 +53,7 @@ public class Day12Test {
       Graph g = parse("/day12.txt");
 
       VertexVisitController controller = (gg, vertex, visitedVertices) -> {
-         return !vertex.isSmall() || visitedVertices.getOrDefault(vertex,0) == 0;
+         return !vertex.small() || visitedVertices.getOrDefault(vertex,0) == 0;
       };
 
       List<List<Edge>> allPaths = findAllPath(g, new Vertex("start"), new Vertex("end"), controller);
@@ -68,7 +69,7 @@ public class Day12Test {
 
          if (vertex.id().equals("start")) {
             return false;
-         } else if (vertex.isSmall()) {
+         } else if (vertex.small()) {
             int count = visitedVertices.getOrDefault(vertex, 0);
             return hasSmallVertexVisitedTwice(visitedVertices) ? count == 0 : count < 2;
          } else {
@@ -82,7 +83,7 @@ public class Day12Test {
 
    private boolean hasSmallVertexVisitedTwice(Map<Vertex, Integer> visitedVertices) {
       return visitedVertices.entrySet().stream()
-              .anyMatch(e -> e.getKey().isSmall() && e.getValue() >= 2);
+              .anyMatch(e -> e.getKey().small() && e.getValue() >= 2);
    }
 
    interface VertexVisitController {
@@ -95,29 +96,23 @@ public class Day12Test {
 
    private List<List<Edge>> findAllPath(Graph g, Vertex from, Vertex to, Map<Vertex,Integer> visitedVertices, VertexVisitController controller) {
 
-      List<List<Edge>> result = new ArrayList<>();
-
-      Set<Vertex> vertices = g.getReachableVertices(from);
-
       Map<Vertex, Integer> newVisitedVertices = Utils.Maps.add(visitedVertices, from, 1, Integer::sum);
 
-      for (Vertex vertex : vertices) {
+      List<List<Edge>> result = new ArrayList<>();
+
+      for (Vertex vertex : g.getReachableVertices(from)) {
 
          Edge edge = new Edge(from, vertex);
 
          if (vertex.equals(to)) {
-            result.add(Collections.singletonList(edge));
+            result.add(new LinkedList<>(Collections.singletonList(edge)));
          } else {
 
             if (!controller.acceptVisit(g, vertex, newVisitedVertices)) {
                continue;
             }
 
-            List<List<Edge>> allPartialPaths = findAllPath(g, vertex, to,
-                    newVisitedVertices,
-                    controller);
-
-            for (List<Edge> partialPath : allPartialPaths) {
+            for (List<Edge> partialPath : findAllPath(g, vertex, to, newVisitedVertices, controller)) {
 
                List<Edge> completePath = new ArrayList<>();
                completePath.add(edge);
